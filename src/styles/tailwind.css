@@ -1,6 +1,20 @@
 @tailwind base;
 
 /* Your own custom base styles */
+@layer base{
+    body{
+        @apply bg-gray-100 box-border
+    }
+    .text{
+        @apply text-lg font-thin tracking-wider leading-relaxed text-gray-900
+    }
+    .code{
+        @apply text-red-500 text-lg bg-gray-300 py-1
+    }
+}
+
+
+
 
 /* Start purging... */
 @tailwind components;

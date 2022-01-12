@@ -3,7 +3,11 @@ module.exports = {
   // https://tailwindcss.com/docs/just-in-time-mode
   // mode: "jit",
   theme: {
-    extend: {},
+    extend: {
+      fontFamily: {
+        'sans': ['Roboto', 'Helvetica', 'Arial', 'sans-serif']
+      }
+    },
   },
   variants: {},
   plugins: [],

@@ -142,27 +142,201 @@ function App() {
     setInput("");
   };
 
-  const editTodo = (item: Item) => {
-    const description = prompt("Edit this") ?? item.description;
-    dispatch({ type: "edit", data: { ...item, description } });
-  };
+  const starOverHandler = () => dispatch({ type: "default" })
+  const deleteHandler = (id:number)=> dispatch({ type: "delete", data: id })
 
   return (
     <div className="App">
-      <div style={{ margin: "40px" }}>
-        <form onSubmit={addTodo}>
-          <label>
-            To do:
-            <input
-              value={input}
-              onChange={(e) => setInput(e.target.value)}
-              style={{ marginLeft: "16px", marginRight: "16px" }}
-            />
-          </label>
-          <input type="submit" value="Add item" />
-        </form>
+    <div style={{ margin: "40px" }}>
+      <div style={{margin:"100px auto",}}>
+        <h2>
+          A Simple Todo app created via Test Driven Development
+        </h2>
       </div>
-      {todos.map((item) => (
+      <form data-testid="submitForm" onSubmit={addTodo} method="post">
+        <label>
+          Enter your Todos
+          <input
+            type="text"
+            data-testid="EntryField"
+            placeholder="Enter Your Todo Here"
+            value={input}
+            onChange={(e) => setInput(e.target.value)}
+            style={{ marginLeft: "16px", marginRight: "16px" }}
+          />
+        </label>
+        <input type="submit"  value="Add item" data-testid="AddItem" />
+      </form>
+    </div>
+    <Todos todos={todos} deleteHandler={deleteHandler} />
+    <button onClick={starOverHandler}>Start over</button>
+
+  </div>
+);
+}
+
+export default App;`
+
+export const cleanUpFunction = `
+afterEach(() => {
+  cleanup();
+});
+
+`;
+
+
+export const headingsTesting = `
+test("UI testing, checking if headings appear in our app", () => {
+  const { getByText } = render(<App />);
+  expect(getByText("Enter your Todos")).toBeInTheDocument();
+  expect(getByText("A Simple Todo app created via Test Driven Development")).toBeInTheDocument();
+});
+
+`;
+
+export const StartOverPresence = `
+test("UI testing ie checking if the reset or start over button exists in our app", () => {
+  render(<App />);
+  const StartOver = screen.getByText("Start over");
+  expect(StartOver).toBeInTheDocument();
+});
+
+`;
+
+export const startOverHandler = `
+test("testing to see if clicking the start over button triggers the startOverhandler function", () => {
+  // Render new instance in every test to prevent leaking state
+  const starOverHandler = jest.fn();
+  const { getByText } = render(<button onClick={starOverHandler}>Start over</button>);
+  fireEvent.click(getByText(/Start over/i));
+  expect(starOverHandler).toHaveBeenCalled();
+});
+
+`;
+export const AddItem = `
+test("UI testing ie checking if the Add todos submit input exists in our app", () => {
+  render(<App />);
+  const AddItem = screen.getByText("Add item");
+  expect(AddItem).toBeInTheDocument();
+});
+
+`;
+export const AddItemAttribute = `
+test("testing UI of the App, submit input field", () => {
+  render(<App />);
+  const AddItem = screen.getByTestId("AddItem");
+  expect(AddItem).toHaveAttribute("value", "Add item");
+  expect(AddItem).toHaveAttribute("type", "submit");
+});
+
+`;
+export const entryField = `
+test("UI testing ie checking if an input field with type text and a certain placeholder exists in our app", () => {
+  render(<App />);
+  const EntryField = screen.getByTestId("EntryField");
+  expect(EntryField).toBeInTheDocument();
+  expect(EntryField).toHaveAttribute("type", "text");
+  expect(EntryField).toHaveAttribute("placeholder", "Enter Your Todo Here");
+});
+
+`;
+export const entryFieldValue = `
+test("checks whether the entry field is change its value as entered by user", () => {
+  const { getByTestId } = render(<App />);
+  const input: any = getByTestId("EntryField");
+  fireEvent.change(input, { target: { value: "testValue" } });
+  expect(input.value).toBe("testValue");
+});
+
+`;
+
+export const submitForm = `
+test("UI testing ie checking if a submission form for our todo exists with the method of post in our app", () => {
+  render(<App />);
+  const submitForm = screen.getByTestId("submitForm");
+  expect(submitForm).toBeInTheDocument();
+  expect(submitForm).toHaveAttribute("method", "post");
+});
+
+`;
+
+export const componentTesting = `
+test("renders a name", () => {
+  const todos = [
+    {
+      id: 1,
+      description: "test",
+    },
+  ];
+  render(<Todos todos={todos} />);
+  const itemsList = screen.getAllByRole("article");
+  expect(itemsList[0]).toHaveTextContent(todos[0].description);
+  expect(itemsList[0]).toHaveStyle({
+    color: "red",
+  });
+});
+
+`;
+export const deleteButton = `
+test("UI testing ie checking if the delete button exists in our app", () => {
+  const todos = [
+    {
+      id: 1,
+      description: "test",
+    },
+  ];
+  render(<Todos todos={todos} />);
+  const deleteButton = screen.getByTestId("deleteButton");
+  expect(deleteButton).toBeInTheDocument();
+});
+
+`;
+
+export const deleteButtonHandler = `
+test("Checking to see if the delete button fires the deleteHandler when clicked", () => {
+  const todos = [
+    {
+      id: 1,
+      description: "test",
+    },
+  ];
+  const deleteHandler = jest.fn();
+  render(<Todos deleteHandler={deleteHandler} todos={todos} />);
+  const buttonElement = screen.getByText("delete");
+  fireEvent.click(buttonElement);
+  expect(deleteHandler).toHaveBeenCalledTimes(1);
+});
+
+`;
+
+
+export const reactTestRenderer = `
+npm i react-test-renderer
+
+`;
+
+export const AppSnapshot = `
+test("Creating a snapshot tree of the App component", () => {
+  const tree = renderer.create(<App />).toJSON();
+  expect(tree).toMatchSnapshot();
+});
+
+`;
+
+export const TodosSnapshot = `
+test("Creating a snapshot tree of the Todo component", () => {
+  const tree = renderer.create(<Todos />).toJSON();
+  expect(tree).toMatchSnapshot();
+});
+
+`;
+
+export const TodosComponent =
+`
+const Todos = ({todos,deleteHandler}:any) => {
+  return (
+      <div>
+    {todos && todos.map((item:any) => (
         <div
           style={{
             display: "flex",
@@ -173,11 +347,12 @@ function App() {
             border: "1px solid black",
           }}
         >
-          <p>{item.description}</p>
+          <p role="article" style={{color: 'red'}}>{item.description}</p>
           <div style={{ display: "flex", alignItems: "center" }}>
-            <button onClick={() => editTodo(item)}>edit</button>
+            
             <button
-              onClick={() => dispatch({ type: "delete", data: item.id })}
+              data-testid="deleteButton"
+              onClick={()=>deleteHandler(item.id)}
               style={{ marginLeft: "16px" }}
             >
               delete
@@ -185,9 +360,11 @@ function App() {
           </div>
         </div>
       ))}
-      <button onClick={() => dispatch({ type: "default" })}>Start over</button>
-    </div>
-  );
+       
+
+      </div>
+  )
 }
 
-export default App;`
+export default Todos
+`

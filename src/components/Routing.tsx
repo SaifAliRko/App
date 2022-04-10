@@ -45,7 +45,25 @@ const Routing = () => {
           className="font-sans  text-lg font-bold  block py-2.5 px-4 rounded hover:text-blue-400 transition duration-200 hover:bg-gray-800 hover:text-white"
           to="editDelete"
         >
-          Edit / Delete Item 
+           Delete Item 
+        </Link>
+        <Link
+          className="font-sans  text-lg font-bold  block py-2.5 px-4 rounded hover:text-blue-400 transition duration-200 hover:bg-gray-800 hover:text-white"
+          to="FrontEndTesting"
+        >
+          Front-end Testing 
+        </Link>
+        <Link
+          className="font-sans  text-lg font-bold  block py-2.5 px-4 rounded hover:text-blue-400 transition duration-200 hover:bg-gray-800 hover:text-white"
+          to="FrontEndTesting2"
+        >
+          Further Front-end testing
+        </Link>
+        <Link
+          className="font-sans  text-lg font-bold  block py-2.5 px-4 rounded hover:text-blue-400 transition duration-200 hover:bg-gray-800 hover:text-white"
+          to="ComponentTesting"
+        >
+          Component Testing
         </Link>
         <Link
           className="font-sans  text-lg font-bold  block py-2.5 px-4 rounded hover:text-blue-400 transition duration-200 hover:bg-gray-800 hover:text-white"

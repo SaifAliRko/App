@@ -8,8 +8,11 @@ import Types from "./pages/Types";
 import StateReducer from "./pages/StateReducer";
 import TestinStarted from "./pages/TestinStarted";
 import AddItem from "./pages/AddItem";
-import EditDelete from "./pages/EditDelete";
+import EditDelete from "./pages/Delete";
 import UserInterface from "./pages/UserInterface";
+import FrontEndTesting from "./pages/FrontEndTesting";
+import FrontEndTesting2 from "./pages/FrontEndTesting2";
+import ComponentTesting from "./pages/ComponentTesting";
 
 function App(): JSX.Element {
   return (
@@ -26,6 +29,9 @@ function App(): JSX.Element {
             <Route path="/testinStarted" element={<TestinStarted/>} />
             <Route path="/addItem" element={<AddItem/>} />
             <Route path="/editDelete" element={<EditDelete/>} />
+            <Route path="/FrontEndTesting" element={<FrontEndTesting/>} />
+            <Route path="/FrontEndTesting2" element={<FrontEndTesting2/>} />
+            <Route path="/ComponentTesting" element={<ComponentTesting/>} />
             <Route path="/userInterface" element={<UserInterface/>} />
           </Routes>
         </Sidebar>

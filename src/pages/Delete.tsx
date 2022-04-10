@@ -1,6 +1,6 @@
 import CodeSnippet from "../components/CodeSnippet";
 import Pagenation from "../components/Pagenation";
-import { deleteReducerCase, deleteTest} from "../components/rawHTML";
+import { deleteReducerCase, deleteTest, reducerTests, reducerWholeFile} from "../components/rawHTML";
 
 const Delete = () => {
   return (
@@ -23,7 +23,9 @@ const Delete = () => {
           Now again for the delete test case we start with a failing test , ie what we want is to
           pass <i>stateWithTwoItems</i> as well as an action of type of <i>delete</i> and an{" "}
           <i>id</i> which is a number lets say 2 and in result we want the second item to get
-          deleted hence receiving <i>stateWithOneItem</i> ie
+          deleted hence receiving <i>stateWithOneItem</i> ie writing next test case in our describe function name(params:type) {
+            
+          }
         </p>
         {/* code part  */}
         <CodeSnippet display={deleteTest} />
@@ -34,7 +36,7 @@ const Delete = () => {
         <p className="text">
           We modify our <i>reducer </i> function in <i className="code">reducer.ts</i> file , with
           the case of <i>delete</i> and returning a filtered copy of state without <i>Item</i> with
-          the same id as that in our action ie
+          the same id as that in our action ie , in our reducer function we add yet another test switch case with name as <i>delete</i>
         </p>
         {/* code part  */}
         <CodeSnippet display={deleteReducerCase} />
@@ -42,8 +44,16 @@ const Delete = () => {
         <p className="text">and Once again all of our tests run successfully</p>
         <img className="mx-auto object-cover my-5 rounded-md" src="pics/AllTests.jpg" alt="" />
         <p className="text">
-          At this point we are done with our Development phase next we will cover the UI left
+          At this point we are done with our Development phase and our <i className="code">reducer.ts </i> file looks something like
         </p>
+        {/* Code part */}
+        <CodeSnippet display={reducerWholeFile}/>
+        {/* Code part */}
+        <p className="text">
+          Additionally our <i className="code">reducer.test.ts </i> looks something like
+        </p>
+        <CodeSnippet display={reducerTests}/>
+
       </div>
       {/* Content  */}
 

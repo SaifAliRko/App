@@ -4,6 +4,7 @@ import {
   AddItem,
   AddItemAttribute,
   cleanUpFunction,
+  describeFunction,
   headingsTesting,
   startOverHandler,
   StartOverPresence,
@@ -17,7 +18,7 @@ const FrontEndTesting = () => {
 
       {/* Next Previous */}
 
-      <Pagenation previous="/addItem" next="/FrontEndTesting2" HomeLeft={false} HomeRight={false} />
+      <Pagenation previous="/editDelete" next="/FrontEndTesting2" HomeLeft={false} HomeRight={false} />
 
       {/* Next Previous */}
 
@@ -25,6 +26,7 @@ const FrontEndTesting = () => {
       <div className=" mt-4">
         <h1 className="font-sans font-serif  my-8 text-2xl">Cleaning Up our functions:</h1>
         <p className="text">
+          Before even starting anything we first of all ,remove all lines of code from <i className="code">App.test.tsx </i>
           Cleaning up function is crucial for unmounting the React tree that were previously mounted
           with the render function , some of the tests of the jest , mocha ,jasmine have automated
           cleanups and don't require these manual cleanups
@@ -33,6 +35,9 @@ const FrontEndTesting = () => {
         <CodeSnippet display={cleanUpFunction} />
 
         {/* code part  */}
+        <p className="text">Now we add our describe test function </p>
+        <CodeSnippet display={describeFunction} />
+
       </div>
 
       {/* Content  */}
@@ -40,12 +45,12 @@ const FrontEndTesting = () => {
         <h1 className="font-sans font-serif  my-8 text-2xl">Checking for Headings:</h1>
         <p className="text">
           We start off by checking whether some headings do exists in our application like{" "}
-          <i>Enter your todos</i> and <i>A Simple Todo app created via TDD</i>
+          <i>Enter your todos</i> and <i>A Simple Todo app created via TDD ,</i>
           for this purpose we write test using our same <i>Jest library</i> in our{" "}
           <i className="code">App.test.tsx file</i>, additionally we use methods like{" "}
           <i className="code">getByText</i> to grab the text from app and{" "}
           <i className="code">toBeInTheDocument()</i> for checking the presence of text. The Jest
-          docs state it is an alias of test. So they are exactly the same from a functional point of
+          docs state <i className="code">it</i> is an alias of <i className="code">test </i>. So they are exactly the same from a functional point of
           view.
         </p>
         {/* code part  */}
@@ -60,7 +65,7 @@ const FrontEndTesting = () => {
         <h1 className="font-sans font-serif  my-8 text-2xl">Start Over Button testing:</h1>
         <p className="text">
           Now we start with our front end button testing for which we first write to see if the
-          button do exists in our App named as <i>Start over</i>
+          button do exists in our App named as <i>Start over </i>
           i.e.
         </p>
         {/* code part  */}
@@ -109,7 +114,7 @@ const FrontEndTesting = () => {
 
       {/* Next Previous */}
 
-      <Pagenation previous="/addItem" next="/FrontEndTesting2" HomeLeft={false} HomeRight={false} />
+      <Pagenation previous="/editDelete" next="/FrontEndTesting2" HomeLeft={false} HomeRight={false} />
 
       {/* Next Previous */}
     </div>

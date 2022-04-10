@@ -1,8 +1,11 @@
-
-export const emptyStateAdditionTest = `describe("reducer", () => { 
-  it("adds an item to state", () => {
-    expect(reducer(initialState, { type: "add" , data: "test 1"})).toStrictEqual(stateWithOneItem);
+export const emptyStateAdditionTest = `describe("reducer", () => {
+  it("returns initial state", () => {
+    expect(reducer(initialState, { type: "default" })).toStrictEqual(initialState);
   });
+  it("adds an item to state", () => {
+    expect(reducer(initialState, { type: "add" , data: "test description 1"})).toStrictEqual(stateWithOneItem);
+  });
+});
 `;
 
 export const findNextIdFunction = `const findNextId = (todos: Item[]): number => {
@@ -14,7 +17,16 @@ export const findNextIdFunction = `const findNextId = (todos: Item[]): number =>
   }
 };`;
 
-export const findNextIdTests = `describe("findNextId", () => {
+export const findNextIdTests = `
+import { findNextId, initialState, reducer } from './reducer';
+import {
+    stateWithOneItem,
+    stateWithTwoItems,
+    stateWithThreeItems,
+  } from "./mock";
+
+
+describe("findNextId", () => {
   it("returns 1 on empty state", () => {
     expect(findNextId(initialState.todos)).toBe(1);
   });
@@ -27,8 +39,9 @@ export const findNextIdTests = `describe("findNextId", () => {
   it("returns 4 on empty state", () => {
     expect(findNextId(stateWithThreeItems.todos)).toBe(4);
   });
-  
-});`;
+});
+
+`;
 
 export const reducerAddCase = `export const reducer = (state: State, action: Action): State => {
     switch (action.type) {
@@ -48,12 +61,12 @@ export const reducerAddCase = `export const reducer = (state: State, action: Act
         return state;
     }
   };`;
-export const reducerAddItemToMatureTest = `describe("reducer", () => {
-    it("adds item to mature state", () => {
-      expect(reducer(stateWithOneItem, {type: "add" , description: "test 2"}))
-        .toStrictEqual(stateWithTwoItems);
-    });
-  });`;
+export const reducerAddItemToMatureTest = `
+it("adds item to mature state", () => {
+  expect(reducer(stateWithOneItem, {type: "add" ,data: "test description 2"}))
+    .toStrictEqual(stateWithTwoItems);
+});
+`;
 
 export const editTest = `describe("reducer", () => {
     it("edits an item in state", () => {
@@ -88,25 +101,20 @@ export const reducerEditCase = `export const reducer = (state: State, action: Ac
     }
   };`;
 
-export const deleteTest = `describe("reducer", () => {
+export const deleteTest = `
     it("deletes an item in state", () => {
       expect(reducer(stateWithTwoItems, {type:"delete" , data: 2 }))
         .toStrictEqual(stateWithOneItem);
     });
-  });`;
+`;
 
-export const deleteReducerCase = `export const reducer = (state: State, action: Action): State => {
-    switch (action.type) {
+export const deleteReducerCase = `
       case "delete": {
         return {
           ...state,
           todos: state.todos.filter((todo) => todo.id !== action.data),
         };
-      }
-      default:
-        return state;
-    }
-  };`;
+`;
 export const createReactApp = `npx create-react-app my-app --template typescript`;
 
 export const useReducerExample = `const initalState = { count: 0 }
@@ -127,7 +135,7 @@ function Counter() {
   );
 }`;
 
-export const userInterface=`import React, { useReducer, useState } from "react";
+export const userInterface = `import React, { useReducer, useState } from "react";
 import "./App.css";
 import { initialState, reducer } from "./reducer";
 import { Item } from "./types";
@@ -175,23 +183,24 @@ function App() {
 );
 }
 
-export default App;`
+export default App;`;
 
 export const cleanUpFunction = `
+import { cleanup } from "@testing-library/react";
+
 afterEach(() => {
   cleanup();
 });
 
-`;
 
+`;
 
 export const headingsTesting = `
 test("UI testing, checking if headings appear in our app", () => {
-  const { getByText } = render(<App />);
-  expect(getByText("Enter your Todos")).toBeInTheDocument();
-  expect(getByText("A Simple Todo app created via Test Driven Development")).toBeInTheDocument();
+  render(<App />);
+  expect(screen.getByText("Enter your Todos")).toBeInTheDocument();
+  expect(screen.getByText("A Simple Todo app created via Test Driven Development")).toBeInTheDocument();
 });
-
 `;
 
 export const StartOverPresence = `
@@ -207,8 +216,8 @@ export const startOverHandler = `
 test("testing to see if clicking the start over button triggers the startOverhandler function", () => {
   // Render new instance in every test to prevent leaking state
   const starOverHandler = jest.fn();
-  const { getByText } = render(<button onClick={starOverHandler}>Start over</button>);
-  fireEvent.click(getByText(/Start over/i));
+  render(<button onClick={starOverHandler}>Start over</button>);
+  fireEvent.click(screen.getByText(/Start over/i));
   expect(starOverHandler).toHaveBeenCalled();
 });
 
@@ -309,9 +318,9 @@ test("Checking to see if the delete button fires the deleteHandler when clicked"
 
 `;
 
-
 export const reactTestRenderer = `
 npm i react-test-renderer
+npm i --save-dev @types/react-test-renderer
 
 `;
 
@@ -331,13 +340,13 @@ test("Creating a snapshot tree of the Todo component", () => {
 
 `;
 
-export const TodosComponent =
-`
+export const TodosComponent = `
 const Todos = ({todos,deleteHandler}:any) => {
   return (
-      <div>
+      <>
     {todos && todos.map((item:any) => (
         <div
+          key={item.id}
           style={{
             display: "flex",
             justifyContent: "space-between",
@@ -362,9 +371,217 @@ const Todos = ({todos,deleteHandler}:any) => {
       ))}
        
 
-      </div>
+      </>
   )
 }
 
 export default Todos
+`;
+export const reducerWholeFile = `
+import { Action, Item, State } from "./types";
+
+export const initialState: State = {
+  todos: [],
+};
+
+export const findNextId = (todos: Item[]): number => {
+  if (todos.length === 0) {
+    return 1;
+  } else {
+    const allIds = todos.map((t) => t.id);
+    return Math.max(...allIds) + 1;
+  }
+};
+
+export const reducer = (state: State, action: Action): State => {
+  switch (action.type) {
+    case "add": {
+      if (action.data.length === 0) {
+        return state;
+      }
+      return {
+        ...state,
+        todos: [...state.todos, { id: findNextId(state.todos), description: action.data }],
+      };
+    }
+    case "edit": {
+      const { id, description } = action.data;
+      return {
+        ...state,
+        todos: state.todos.map((t) => {
+          if (t.id === id) {
+            return {
+              ...t,
+              description,
+            };
+          }
+          return t;
+        }),
+      };
+    }
+    case "delete": {
+      return {
+        ...state,
+        todos: state.todos.filter((t) => t.id !== action.data),
+      };
+    }
+    case "default": {
+      return initialState;
+    }
+    default:
+      return state;
+  }
+};
+
+`;
+
+export const reducerTests = `
+import { findNextId, initialState, reducer } from "./reducer";
+import { stateWithOneItem, stateWithTwoItems, stateWithThreeItems } from "./mock";
+
+describe("findNextId", () => {
+  it("returns 1 on empty state", () => {
+    expect(findNextId(initialState.todos)).toBe(1);
+  });
+  it("returns 2 with state of one item", () => {
+    expect(findNextId(stateWithOneItem.todos)).toBe(2);
+  });
+  it("returns 3 on empty state", () => {
+    expect(findNextId(stateWithTwoItems.todos)).toBe(3);
+  });
+  it("returns 4 on empty state", () => {
+    expect(findNextId(stateWithThreeItems.todos)).toBe(4);
+  });
+});
+
+describe("reducer", () => {
+  it("returns initial state", () => {
+    expect(reducer(initialState, { type: "default" })).toStrictEqual(initialState);
+  });
+  it("adds an item to state", () => {
+    expect(reducer(initialState, { type: "add", data: "test description 1" })).toStrictEqual(
+      stateWithOneItem,
+    );
+  });
+  it("adds item to mature state", () => {
+    expect(reducer(stateWithOneItem, { type: "add", data: "test description 2" })).toStrictEqual(
+      stateWithTwoItems,
+    );
+  });
+  it("deletes an item in state", () => {
+    expect(reducer(stateWithTwoItems, { type: "delete", data: 2 })).toStrictEqual(stateWithOneItem);
+  });
+});
+
+`;
+export const describeFunction = `
+describe("Front End Testing ", () => {
+
+  });
+`;
+
+
+export const AppTestTsx=`
+import { cleanup, fireEvent, render, screen } from "@testing-library/react";
+import App from "./App";
+import renderer from "react-test-renderer";
+import Todos from "./Todos";
+
+describe("Front End Testing ", () => {
+  test("UI testing, checking if headings appear in our app", () => {
+    render(<App />);
+    expect(screen.getByText("Enter your Todos")).toBeInTheDocument();
+    expect(
+      screen.getByText("A Simple Todo app created via Test Driven Development"),
+    ).toBeInTheDocument();
+  });
+
+  test("UI testing ie checking if the reset or start over button exists in our app", () => {
+    render(<App />);
+    const StartOver = screen.getByText("Start over");
+    expect(StartOver).toBeInTheDocument();
+  });
+
+  test("testing to see if clicking the start over button triggers the startOverhandler function", () => {
+    const starOverHandler = jest.fn();
+    render(<button onClick={starOverHandler}>Start over</button>);
+    fireEvent.click(screen.getByText(/Start over/i));
+    expect(starOverHandler).toHaveBeenCalled();
+  });
+
+  test("UI testing ie checking if the Add todos submit input exists in our app", () => {
+    render(<App />);
+    const AddItem = screen.getByText("Add item");
+    expect(AddItem).toBeInTheDocument();
+  });
+
+  test("testing UI of the App, submit input field", () => {
+    render(<App />);
+    const AddItem = screen.getByTestId("AddItem");
+    expect(AddItem).toHaveAttribute("value", "Add item");
+    expect(AddItem).toHaveAttribute("type", "submit");
+  });
+
+  test("UI testing ie checking if an input field with type text and a certain placeholder exists in our app", () => {
+    render(<App />);
+    const EntryField = screen.getByTestId("EntryField");
+    expect(EntryField).toBeInTheDocument();
+    expect(EntryField).toHaveAttribute("type", "text");
+    expect(EntryField).toHaveAttribute("placeholder", "Enter Your Todo Here");
+  });
+
+  test("checks whether the entry field is change its value as entered by user", () => {
+    const { getByTestId } = render(<App />);
+    const input: any = getByTestId("EntryField");
+    fireEvent.change(input, { target: { value: "testValue" } });
+    expect(input.value).toBe("testValue");
+  });
+
+  test("UI testing ie checking if a submission form for our todo exists with the method of post in our app", () => {
+    render(<App />);
+    const submitForm = screen.getByTestId("submitForm");
+    expect(submitForm).toBeInTheDocument();
+    expect(submitForm).toHaveAttribute("method", "post");
+  });
+
+  test("renders a name", () => {
+    const todos = [{id: 1, description: "test",}];
+    render(<Todos todos={todos} />);
+    const itemsList = screen.getAllByRole("article");
+    expect(itemsList[0]).toHaveTextContent(todos[0].description);
+    expect(itemsList[0]).toHaveStyle({
+      color: "red",
+    });
+  });
+
+  test("UI testing ie checking if the delete button exists in our app", () => {
+    const todos = [{id: 1, description: "test",}];
+    render(<Todos todos={todos} />);
+    const deleteButton = screen.getByTestId("deleteButton");
+    expect(deleteButton).toBeInTheDocument();
+  });
+
+  test("Checking to see if the delete button fires the deleteHandler when clicked", () => {
+    const todos = [{id: 1, description: "test",}];
+    const deleteHandler = jest.fn();
+    render(<Todos deleteHandler={deleteHandler} todos={todos} />);
+    const buttonElement = screen.getByText("delete");
+    fireEvent.click(buttonElement);
+    expect(deleteHandler).toHaveBeenCalledTimes(1);
+  });
+
+  test("Creating a snapshot tree of the App component", () => {
+    const tree = renderer.create(<App />).toJSON();
+    expect(tree).toMatchSnapshot();
+  });
+
+  test("Creating a snapshot tree of the Todo component", () => {
+    const tree = renderer.create(<Todos />).toJSON();
+    expect(tree).toMatchSnapshot();
+  });
+});
+`
+
+export const runCommand=`
+npm test App.test
 `

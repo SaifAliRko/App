@@ -17,7 +17,7 @@ const AddItem = () => {
         <h1 className="font-sans font-serif  my-8 text-2xl">Creating a Mock Data file:</h1>
         <p className="text">
           Now in order to get started with TDD we need some dummy data of our states so that we can
-          our program by using them. So we create a <i className="code">mock.ts </i>.
+          test our program by using them. So we create a <i className="code">mock.ts </i> in <i>src folder</i>.
         </p>
         <br />
         <p className="text">
@@ -36,7 +36,7 @@ const AddItem = () => {
         <p className="text">
           Now switching back to <i className="code">reducer.test.ts</i> in order to write our first
           failing test and then try to fix it , this is really the beauty of TDD , so including the
-          previous test we write additional test ie passing intial state and and action of type add
+          previous test we write additional test ie passing intial state  and action of type add
           and data of test 1 which simply should result the output of reducer to be{" "}
           <i className="code">stateWithOneItem </i>
         </p>
@@ -46,13 +46,13 @@ const AddItem = () => {
         {/* COde part  */}
 
         <p className="text">
-          Now upon running the test , it certainly fails now we have wire up and configure and add
+          Now upon running the test , it certainly fails now we have to wire up and configure  add
           more complexity in our reducer function in <i className="code">reducer.ts </i>
           so that test result is acceptable , the first thing to do is to add a case in our reducer
           function ie 'add' case ,but before writing 'add' case we need to create a function which
-          will simply designated to 'id' field in our todos and simply returns 1 if there is no item
+          will simply designate an 'id' field in our todos and simply returns 1 if there is no item
           in todos and increments id if another item is being added in todos ie creating{" "}
-          <i className="code">findNextId</i> function in reducer.ts
+          <i className="code">findNextId</i> function in reducer.ts , which we obviously write right above our reducer function.
         </p>
 
         {/* code part  */}
@@ -89,7 +89,7 @@ const AddItem = () => {
 
         <img className="object-cover my-7 rounded-md " src="pics/testResult.jpg" alt="" />
         <p className="text">
-          Up next we are going to make test cases for edit and delete functionality
+          Up next we are going to make test cases for delete functionality
         </p>
       </div>
       {/* Content */}

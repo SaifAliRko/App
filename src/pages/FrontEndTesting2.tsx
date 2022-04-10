@@ -1,18 +1,8 @@
 import CodeSnippet from "../components/CodeSnippet";
 import Pagenation from "../components/Pagenation";
 import {
-  AddItem,
-  AddItemAttribute,
-  cleanUpFunction,
-  deleteReducerCase,
-  deleteTest,
-  editTest,
   entryField,
   entryFieldValue,
-  headingsTesting,
-  reducerEditCase,
-  startOverHandler,
-  StartOverPresence,
   submitForm,
 } from "../components/rawHTML";
 
@@ -26,7 +16,7 @@ const FrontEndTesting2 = () => {
 
       <Pagenation
         previous="/FrontEndTesting"
-        next="/userInterface"
+        next="/ComponentTesting"
         HomeLeft={false}
         HomeRight={false}
       />
@@ -81,7 +71,7 @@ const FrontEndTesting2 = () => {
 
       <Pagenation
         previous="/FrontEndTesting"
-        next="/userInterface"
+        next="/ComponentTesting"
         HomeLeft={false}
         HomeRight={false}
       />

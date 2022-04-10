@@ -20,7 +20,7 @@ const StateReducer = () => {
         <p className="text">
           In our Todo app we are going to be handling our state through a{" "}
           <i className="code ">reducer </i>. Now there are some special function ( hooks) that serve
-          this purpose to handle state like <i className="code ">useState</i>
+          this purpose to handle state like <i className="code ">useState</i>.
           But in this we will use the hook provided by React known as{" "}
           <i className="code">useReducer</i> to mange state
         </p>

@@ -2,6 +2,7 @@ import CodeSnippet from "../components/CodeSnippet";
 import Pagenation from "../components/Pagenation";
 import {
   AppSnapshot,
+  AppTestTsx,
   componentTesting,
   deleteButton,
   deleteButtonHandler,
@@ -112,8 +113,18 @@ const ComponentTesting = () => {
           <i className="code">_snapshots_ </i> being created which has the snapshot of your
           components. So after writing all of your tests we create the relevant UI
         </p>
+        <p className="text">
+          Finally our <i className="code">App.test.tsx </i> looks something like below, plus now we need to make user interface modifications as well as create <i className="code">Todos.tsx </i> component.
+        </p>
+        {/* code part  */}
+        <CodeSnippet display={AppTestTsx} />
+        {/* code part  */}
+        
       </div>
+
       {/* Content  */}
+
+
 
       {/* Next Previous */}
 

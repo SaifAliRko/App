@@ -1,5 +1,6 @@
 
 import Pagenation from "../components/Pagenation";
+// import { correctVersion } from "../components/rawHTML";
 
 const TestinStarted = () => {
   return (
@@ -16,14 +17,14 @@ const TestinStarted = () => {
       <div className=" mt-4">
         <h1 className="font-sans font-serif  my-8 text-2xl">Creating Required Files:</h1>
         <p className="text">
-          In order to get started we first create two files. For managing the state through reducer
+          In order to get started we first create two files named as <i className="code">reducer.ts </i> and <i className="code">reducer.test.ts </i> both in <i className="code">src </i> folder. For managing the state through reducer
           function we create <i className="code">reducer.ts</i>
           and similarly for writing their equivalent unit tests we create{" "}
           <i className="code">reducer.test.ts</i>
         </p>
         <h1 className="font-sans font-serif  my-8 text-2xl">Writing First Test:</h1>
         <p className="text">
-          Now we write our first test in reducer.test.ts , which should simly reflect that if we
+          Now we write our first test in reducer.test.ts , which should simply reflect that if we
           pass our <i className="code">initialState</i> and action of type{" "}
           <i className="code">default</i> in <i className="code">reducer function </i>
           we should strictly get our <i className="code">initialState</i>
@@ -43,6 +44,18 @@ const TestinStarted = () => {
             initialState. Now is the time to run test which we can by typing the following command
             in terminal
           </p>
+          <p className="text">But before running the test it is crucial to use the correct version of jest-watch typehead for that purpose at first you enter the following command in terminal</p>
+           {/* command terminal */}
+           <div className="bg-gray-200 rounded-md w-full h-24 flex justify-center items-center my-3">
+            <div className=" bg-black p-2 border-l-8  h-9 w-11/12   border-blue-600  text-white text-base font-thin">
+              <pre>
+                <b className="text-yellow-300"> npm</b> {" "}
+                <b className="text-gray-400 text-sm">i -D --exact jest-watch-typeahead@0.6.5</b>
+              </pre>
+            </div>
+          </div>
+            {/* command terminal */}
+            <p className="text">Afterwards you are good to run the following command in your terminal to successfully run your first test.</p>
           {/* command terminal */}
           <div className="bg-gray-200 rounded-md w-full h-24 flex justify-center items-center my-3">
             <div className=" bg-black p-2 border-l-8  h-9 w-11/12   border-blue-600  text-white text-base font-thin">
@@ -51,8 +64,8 @@ const TestinStarted = () => {
                 <b className="text-gray-400 text-sm">--watch</b>
               </pre>
             </div>
-            {/* command terminal */}
           </div>
+            {/* command terminal */}
         </p>
         <p className="text">and here we have our very first test being passed</p>
         <img className="object-cover my-5 rounded-md" src="pics/testResult.jpg" alt="" />

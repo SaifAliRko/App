@@ -2,7 +2,7 @@
 import { Fragment } from "react";
 import { Disclosure } from "@headlessui/react";
 import { MenuIcon, XIcon } from "@heroicons/react/outline";
-import {  NavLink, useNavigate } from "react-router-dom";
+import { NavLink, useNavigate } from "react-router-dom";
 
 // const navigation = [
 //   { name: 'Dashboard', href: '#', current: true },
@@ -10,7 +10,6 @@ import {  NavLink, useNavigate } from "react-router-dom";
 // //   { name: 'Projects', href: '#', current: false },
 // //   { name: 'Calendar', href: '#', current: false },
 // ]
-
 
 export default function Navbar(): JSX.Element {
   let navigate = useNavigate();
@@ -31,12 +30,11 @@ export default function Navbar(): JSX.Element {
                   )}
                 </Disclosure.Button>
               </div>
-              <div
-               
-                className="flex-1 flex items-center justify-center sm:items-stretch sm:justify-start"
-              >
-                <div className="flex-shrink-0 flex items-center  cursor-pointer  "
-                 onClick={() => navigate("/")}>
+              <div className="flex-1 flex items-center justify-center sm:items-stretch sm:justify-start">
+                <div
+                  className="flex-shrink-0 flex items-center  cursor-pointer  "
+                  onClick={() => navigate("/")}
+                >
                   <img
                     className="block lg:hidden h-10 w-auto "
                     src="1.svg"
@@ -55,7 +53,9 @@ export default function Navbar(): JSX.Element {
 
               <NavLink
                 className={({ isActive }) =>
-                  `h-full pt-5 text-white font-semibold  font-sans font-serif  hover:text-blue-400 outline-none hover:border-blue-400 border-transparent border-b-4  ${isActive && " border-b-4 border-blue-300 text-blue-400"}`
+                  `h-full pt-5 text-white font-semibold  font-sans font-serif  hover:text-blue-400 outline-none hover:border-blue-400 border-transparent border-b-4  ${
+                    isActive && " border-b-4 border-blue-300 text-blue-400"
+                  }`
                 }
                 to="/about"
               >
@@ -71,8 +71,6 @@ export default function Navbar(): JSX.Element {
 
                 {/* Profile dropdown */}
                 <img className="h-10 w-10 rounded-full object-contain" src="3.jpg" alt="" />
-
-              
               </div>
             </div>
           </div>
